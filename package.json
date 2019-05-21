@@ -2,11 +2,12 @@
   "name": "cartaroom",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/cartaroom/cartaroom.github.io",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run build; push-dir --dir=dist --branch=develop --cleanup"
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -25,6 +26,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "push-dir": "^0.4.1",
+    "vue-gh-pages": "^1.19.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
