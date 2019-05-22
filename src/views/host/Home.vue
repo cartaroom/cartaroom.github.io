@@ -1,8 +1,7 @@
 <template>
     <div class="home">
         <div class="banner">
-            <br>
-            <p class="banner_text">All Rooms</p>
+            <p class="banner_text">All the Rooms</p>
         </div>
 
         <div class="rooms" v-for="room of rooms.slice().reverse()" v-bind:key ="room['.key']">
@@ -40,7 +39,7 @@
 
                     <div class="rowA">
                         <div class="columnButtons">
-                            <button v-on:click="viewRoom(room.roomID)">View Room</button>
+                            <button v-on:click="viewRoom(room.roomID)">View</button>
                         </div>
                     </div>
                 </div>
@@ -52,12 +51,6 @@
 <script>
     import firebase from 'firebase';
     import db from '@/firebase.js';
-
-    // db.ref('rooms').once('value').then(function(snapshot) {
-    //   console.log(snapshot.val());
-    // }).catch((error) => {
-    //   console.log(error);
-    // });
 
     var userID;
     firebase.auth().onAuthStateChanged(function (user) {
@@ -107,7 +100,7 @@
     }
 
     .column1A {
-        width:50%;
+        width:60%;
     }
 
     .column1A label{
@@ -120,7 +113,7 @@
      }
 
     .column2A {
-        width:50%;
+        width:40%;
         float: right;
     }
 
@@ -144,13 +137,13 @@
         font-family: Rajdhani;
         font-style: normal;
         font-weight: 600;
-        font-size: 110px;
+        font-size: 90px;
         line-height: 191px;
         text-align: center;
         color: #000000;
     }
     .banner {
-        height: 450px;
+        height: 400px;
         width: 100%;
         background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("../../assets/banner/Host2.jpg");
         background-repeat: no-repeat;
@@ -163,18 +156,6 @@
         font-style: normal;
         font-weight: normal;
         font-size: 25px;
-
-        /*margin-left: 30%;*/
-        /*padding-top: 15px;*/
-        /*padding-bottom: 6px;*/
-        /*font-family: Roboto;*/
-        /*font-style: normal;*/
-        /*font-weight: normal;*/
-        /*font-size: 25px;*/
-        /*line-height: 35px;*/
-        /*display: flex;*/
-        /*align-items: center;*/
-        /*color: #000000;*/
     }
     .rooms{
         margin-left: auto;

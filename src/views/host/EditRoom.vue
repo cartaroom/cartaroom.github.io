@@ -1,7 +1,6 @@
 <template>
 <div class="editRoom">
     <div class="banner">
-        <br>
         <p class="banner_text">Edit Your Room</p>
     </div>
     <h1>{{roomInfo.name}}</h1>
@@ -27,7 +26,7 @@
                 <label>Description</label>
             </div>
             <div class="column2">
-                <textarea class="input_add" type="text" cols="40" rows="4" v-model="roomInfo.description"></textarea>
+                <textarea class="input_add" type="text" cols="40" rows="3" v-model="roomInfo.description"></textarea>
             </div>
         </div>
         <div class="row">
@@ -70,10 +69,10 @@
 
         <div class="row">
             <div class="columnButtons">
-                <button @click="updateRoom">Confirm</button>
                 <button>
                     <router-link to="/home">Cancel</router-link>
                 </button>
+                <button @click="updateRoom">Confirm</button>
             </div>
         </div>
             <!-- <input type = "file" @click="uploadImage"> -->
@@ -82,7 +81,6 @@
 </template>
 
 <script>
-//   console.log(this.$router);
 import firebase from 'firebase';
 var updateRoom = firebase.functions().httpsCallable('updateRoom');
 var createRoom = firebase.functions().httpsCallable('createRoom');
@@ -179,9 +177,6 @@ export default {
 </script>
 
 <style scoped>
-    .columnButtons {
-        float: right;
-    }
 
     .column1 {
         width:30%;
@@ -222,14 +217,14 @@ export default {
     font-family: Rajdhani;
     font-style: normal;
     font-weight: 600;
-    font-size: 110px;
+    font-size: 90px;
     line-height: 191px;
     text-align: center;
     color: #000000;
 }
 
 .banner {
-    height: 450px;
+    height: 400px;
     width: 100%;
     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("../../assets/banner/Host2.jpg");
     background-repeat: no-repeat;
@@ -267,6 +262,7 @@ export default {
     border: 0.75px solid darkgrey;
     width: 75%;
     border-radius: 5px;
+    resize:none;
 }
 
 .input_time {
@@ -277,11 +273,11 @@ export default {
     box-sizing: border-box;
     font-style: normal;
     font-weight: 300;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 35px;
     word-break: break-word;
     border: 0.75px solid darkgrey;
-    width: 20%;
+    width: 30%;
     border-radius: 5px;
 }
 
@@ -303,7 +299,6 @@ export default {
         width: 15%;
         color: #000000;
         margin: 25px 25px;
-        float: right;
     }
 
     .columnButtons a {
@@ -318,16 +313,16 @@ export default {
     }
 
 
-.edit {
-    margin-left:auto;
-    margin-right:auto;
-    padding-top: 44px;
-    margin-bottom: 45px;
-    background: rgba(218, 229, 227, 0.9);
-    border-radius: 15px;
-    width:55%;
-    height:60%;
-}
+    .edit {
+        margin-left:auto;
+        margin-right:auto;
+        padding-top: 44px;
+        margin-bottom: 45px;
+        background: rgba(218, 229, 227, 0.9);
+        border-radius: 15px;
+        width:55%;
+        height:60%;
+    }
     label {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         font-style: normal;

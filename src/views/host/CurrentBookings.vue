@@ -1,7 +1,6 @@
 <template>
     <div class="currentBookings">
         <div class="banner">
-            <br>
             <p class="banner_text">Current Bookings</p>
         </div>
         <div class="current" v-for="booking of bookings.slice().reverse()" v-bind:key="booking['.key']">
@@ -39,17 +38,16 @@
                             <label>Date</label>
                         </div>
                         <div class="column2A">
-                            <p class="info">{{ booking.date}}</p>
+                            <p class="info2">{{ booking.date}}</p>
                         </div>
                     </div>
 
                     <div class="rowA">
                         <div class="column1A">
-                            <label>Business Hours</label>
+                            <label>Reservation Time</label>
                         </div>
                         <div class="column2A">
-                            <span class="timeText">Open:</span><p class="info">{{ booking.startTime}}:00</p>
-                            <span class="timeText">Close:</span><p class="info">{{ booking.endTime}}:00</p>
+                            <p class="info2"> {{ booking.startTime }}:00 - {{ booking.endTime }}:00</p>
                         </div>
                     </div>
                 </div>
@@ -99,22 +97,51 @@
     }
 </script>
 <style scoped>
+    .row {
+        margin:auto;
+        width: 90%;
+        display: flex;
+        align-items:center;
+    }
+    .rowA {
+        display: flex;
+        align-items: center;
+    }
+    .column1 {
+        width:30%;
+    }
+
+    .column2 {
+        width: 100%;
+    }
+    .column1A {
+        width: 40%;;
+    }
+    .column1A label{
+        float: right;
+        padding-right: 10%;
+    }
+    .column2A {
+        width:50%;
+    }
+    .column2A p {
+        margin:5px 0;
+    }
     img{
-    padding-top: 75px;
-    padding-left: 40px;
-    width: 75%;
+        width: 100%;
+        height:auto;
     }
     .banner_text {
     font-family: Rajdhani;
     font-style: normal;
     font-weight: 600;
-    font-size: 110px;
+    font-size: 90px;
     line-height: 191px;
     text-align: center;
     color: #000000;
     }
     .banner {
-    height: 450px;
+    height: 400px;
     width: 100%;
         background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("../../assets/banner/Host2.jpg");
         background-repeat: no-repeat;
@@ -123,43 +150,40 @@
         padding-top:150px;
     }
     label {
-    margin-left: 30%;
-    padding-top: 15px;
-    padding-bottom: 6px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    line-height: 35px;
-    display: flex;
-    align-items: center;
-    color: #000000;
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
     }
     .current{
-    margin-left: 25%;
-    padding-top: 45px;
-    padding-bottom: 45px;
-    margin-top: 45px;
-    margin-bottom: 45px;
-    background: rgba(218, 229, 227, 0.9);
-    border-radius: 15px;
-    width: 1200px;
+        margin: 45px auto;
+        padding:1% 0;
+        background: rgba(218, 229, 227, 0.9);
+        border-radius: 15px;
+        width: 50%;
     }
-    .row {
-    display: flex;
-    }
-    .column {
-    flex: 33%;
-    padding: 10px;
-    }
+
     .info{
-    border: 0.25px solid #000000;
-    width: 625px;
-    font-size: 20px;
-    line-height: 35px;
-    box-sizing: border-box;
-    background: #FFFFFF;
-    border-radius: 10px;
-    margin-right: 100px;
-    }   
+        border: 0.75px solid darkgrey;
+        margin:10px 0;
+        font-size: 20px;
+        line-height: 35px;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        border-radius: 5px;
+        word-break: break-word;
+    }
+
+    .info2 {
+        border: 0.75px solid darkgrey;
+        width:60%;
+        padding-left: 0;
+        margin:10px 0;
+        font-size: 20px;
+        line-height: 35px;
+        box-sizing: border-box;
+        background: #FFFFFF;
+        border-radius: 5px;
+        word-break: break-word;
+    }
 </style>

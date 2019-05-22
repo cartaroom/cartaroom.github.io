@@ -1,8 +1,13 @@
 <template>
 <div class="finalResults">
-    <!--<img src="../assets/banner/map.png"> -->
+    <div id="search_text">
+        <div style="display:inline">
+            <input class="search_input big" type="text" placeholder= "Location" v-model="criteria" id="where" @keyup.enter="search">
+            <button id="search_button" @click="search">Search</button>
+        </div>
+    </div>
     <div class="results" v-for="room of rooms" v-bind:key="room['.key']">
-        <div class="row">   
+        <div class="row">
             <div class="column">
                 <label>Room Name</label>
                 <label>Room Capacity</label>
@@ -20,14 +25,16 @@
         <!-- <button v-on:click="bookRoom(room)">Book Room</button> <br /> -->
     </div>
     <br>
-    <router-link to="/search">
+    <!-- comment out for new, can click logo to go back to search page -->
+    <!-- <router-link to="/search">
         <button>
             Back to Search  
         </button>
-    </router-link>
+    </router-link> -->
     <!-- <Recommended></Recommended> -->
+    <div class="clear">
+    </div>
 </div>
-
 </template>
 
 <script>
@@ -39,7 +46,8 @@ export default {
     data() {
         return {
             rooms: [],
-            criteria: ''
+            criteria: '',
+            newCriteria: ''
         }
     },
     created() {
@@ -61,14 +69,30 @@ export default {
                     id: id
                 }
             })
+        },
+        search: function () {
+            if (this.criteria == '') {
+               alert('Missing criteria');
+            } else {
+                this.$router.push({
+                    name: 'Results',
+                    params: {
+                        criteria: this.criteria
+                    }
+                })
+                this.$router.go();
+            }
         }
     }
 }
 </script>
 
 <style scoped>
-label {
+.clear {
+    clear: both;
+}
 
+label {
     margin-bottom: 20px;
     font-family: Roboto;
     font-style: normal;
@@ -120,7 +144,6 @@ button {
     margin-left: 50px
 }
 
-
 .info {
     border: 0.25px solid #000000;
     width: 155px;
@@ -153,4 +176,86 @@ img {
     position: fixed;
 }
 
+.search_input {
+    background: #FFFFFF;
+    border: 1px solid #828282;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 20px;
+    font-family: Rboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.label_head {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: left;
+    padding-left: 40px;
+    margin-bottom: 0px;
+}
+
+#search_button {
+    background: rgba(84, 142, 255, 0.8);
+    border-radius: 5px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 10%;
+    height: 35px;
+    margin-bottom: 0px;
+    float: right;
+    margin-right: 20%;
+}
+
+.search_input {
+    background: #FFFFFF;
+    border: 1px solid #828282;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 20px;
+    font-family: Rboto;
+    font-style: normal;
+    font-weight: 300;
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+.big {
+    width: 620px;
+    height: 37px;
+}
+
+::placeholder {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    color: #828282;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    color: #828282;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    color: #828282;
+}
 </style>

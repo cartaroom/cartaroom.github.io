@@ -1,7 +1,6 @@
 <template>
     <div class="editRoom">
         <div class="banner">
-            <br>
             <p class="banner_text">Room View</p>
         </div>
         <div id="view">
@@ -72,13 +71,10 @@
 
             <div class="row">
                 <div class="columnButtons">
-                    <button v-on:click="editRoom(roomInfo.roomID)">Edit Room</button>
-                    <button v-on:click="deleteRoom(roomInfo.roomID)">Delete Room</button>
+                    <button id="delete" v-on:click="deleteRoom(roomInfo.roomID)">Delete <i class='far fa-trash-alt'></i></button>
+                    <button v-on:click="editRoom(roomInfo.roomID)">Edit <i class='far fa-edit'></i></button>
                 </div>
             </div>
-<!--            <br />-->
-<!--            <button v-on:click="editRoom(roomInfo.roomID)">Edit Room</button>-->
-<!--            <button v-on:click="deleteRoom(roomInfo.roomID)">Delete Room</button><br />-->
         </div>
         <router-link to="/home">Cancel</router-link>
     </div>
@@ -261,7 +257,6 @@
         width: 15%;
         color: #000000;
         margin: 25px 25px;
-        float: right;
     }
 
     .columnButtons a {
@@ -280,13 +275,13 @@
         font-family: Rajdhani;
         font-style: normal;
         font-weight: 600;
-        font-size: 110px;
+        font-size: 90px;
         line-height: 191px;
         text-align: center;
         color: #000000;
     }
     .banner {
-        height: 450px;
+        height: 400px;
         width: 100%;
         background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("../../assets/banner/Host2.jpg");
         background-repeat: no-repeat;
@@ -295,9 +290,13 @@
         padding-top:150px;
     }
 
+    #delete {
+        background-color: #ff6961;
+        color:white;
+    }
     #view {
         margin: 40px auto 45px auto;
-        padding-top: 44px;
+        padding: 1% 0;
         background: rgba(218, 229, 227, 0.9);
         border-radius: 15px;
         width:55%;
