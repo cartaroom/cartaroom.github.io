@@ -5,9 +5,18 @@ import App from './index.vue'; //Navbar for non-logged in user
 import App1 from './hostIndex.vue'; //Navbar for logged in user[Host]
 import App2 from './patronIndex.vue'; //Navbar for logged in user[Patron]
 import router from './router';
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate);
+
+Vue.directive('focus', {
+  inserted:function(el) {
+    el.focus()
+  }
+})
 
 let app;
 //export default firebase.database();

@@ -2,44 +2,84 @@
 <div class="finalResults">
     <div id="search_text">
         <div style="display:inline">
-            <input class="search_input big" type="text" placeholder= "Location" v-model="criteria" id="where" @keyup.enter="search">
+            <input class="search_input big" v-focus type="text" placeholder= "Location" v-model="criteria" id="where" @keyup.enter="search">
             <button id="search_button" @click="search">Search</button>
         </div>
     </div>
     <div class="results" v-for="room of rooms" v-bind:key="room['.key']">
         <div class="row">
-            <div class="column">
-                <label>Room Name</label>
-                <label>Room Capacity</label>
-                <label>Address</label>
-                <label>Hours Of Operation</label>
-            </div>
-            <div class="column">
-                <p class="info">{{ room.name }}</p>
-                <p class="info">{{ room.capacity }}</p>
-                <p class="info">{{ room.address }}</p>
-                <p class="info">{{ room.openTime }} to {{ room.closeTime }}</p>
-                <button @click="viewRoom(room.roomID)">View Room</button>
-            </div>
+            <img src="../assets/banner/roomView/room1.jpg">
         </div>
-        <!-- <button v-on:click="bookRoom(room)">Book Room</button> <br /> -->
-    </div>
-    <br>
-    <!-- comment out for new, can click logo to go back to search page -->
-    <!-- <router-link to="/search">
+            <div class="row">
+                <div class="column1">
+                    <label>Room Name</label>
+                </div>
+                <div class="column2">
+                    <p class="info"> {{ room.name }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column1">
+                    <label>Capacity</label>
+                </div>
+                <div class="column2">
+                    <p class="info2"> {{ room.capacity }} People</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column1">
+                    <label>Description</label>
+                </div>
+                <div class="column2">
+                    <p class="info"> {{ room.description }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column1">
+                    <label>Address</label>
+                </div>
+                <div class="column2">
+                    <p class="info"> {{ room.address }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column1">
+                    <label>Business Hours</label>
+                </div>
+                <div class="column2">
+                    <p class="info2"> {{ room.openTime }} - {{ room.closeTime }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="columnButtons">
+                    <button @click="viewRoom(room.roomID)">View Room</button>
+                </div>
+            </div>
+
+            <!-- <button v-on:click="bookRoom(room)">Book Room</button> <br /> -->
+        </div>
+        <br>
+        <!-- comment out for new, can click logo to go back to search page -->
+        <!-- <router-link to="/search">
         <button>
             Back to Search  
         </button>
     </router-link> -->
-    <!-- <Recommended></Recommended> -->
-    <div class="clear">
+        <!-- <Recommended></Recommended> -->
+        <div class="clear">
+        </div>
     </div>
-</div>
 </template>
 
 <script>
 import firebase from 'firebase';
 import db from '@/firebase.js';
+//alert styling
+import Vue from 'vue'
+import 'v-slim-dialog/dist/v-slim-dialog.css'
+import SlimDialog from 'v-slim-dialog'
+Vue.use(SlimDialog)
 
 export default {
     name: 'results',
@@ -47,12 +87,13 @@ export default {
         return {
             rooms: [],
             criteria: '',
-            newCriteria: ''
+            criteriaLowerCase: ''
         }
     },
     created() {
+        this.criteriaLowerCase = this.$route.params.criteria.toLowerCase();
         this.criteria = this.$route.params.criteria;
-        db.ref('rooms').orderByChild("name").startAt(this.criteria).endAt(this.criteria + "\uf8ff").once('value').then((snapshot) => {
+        db.ref('rooms').orderByChild("nameLowerCase").startAt(this.criteriaLowerCase).endAt(this.criteriaLowerCase + "\uf8ff").once('value').then((snapshot) => {
             this.rooms = [];
             snapshot.forEach((doc) => {
                 this.rooms.push(doc.val());
@@ -72,7 +113,10 @@ export default {
         },
         search: function () {
             if (this.criteria == '') {
-               alert('Missing criteria');
+                this.$dialogs.alert('Missing required criteria', {
+                    title: 'Warning!',
+                    okLabel: 'OK'
+                });
             } else {
                 this.$router.push({
                     name: 'Results',
@@ -92,9 +136,31 @@ export default {
     clear: both;
 }
 
+.columnButtons {
+    width: 100%;
+}
+
+.column1 {
+    width: 30%;
+    align-items: center;
+}
+
+.column1 label {
+    float: right;
+    padding-right: 10%;
+}
+
+.column2 {
+    width: 70%;
+    margin-top: 1%;
+}
+
+.column2 p {
+    margin: 0;
+}
+
 label {
-    margin-bottom: 20px;
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -111,18 +177,17 @@ span {
 }
 
 button {
-    margin-top: 10px;
-    cursor: pointer;
+    margin: 2% 0;
     border-radius: 15px;
     height: 44px;
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 18px;
     line-height: 35px;
     text-align: center;
-    width: 177px;
-    color: #FFFFFF;
+    width: 45%;
+    color: white;
     background: #000000;
 }
 
@@ -132,33 +197,42 @@ button {
 }
 
 .results {
-    margin: 0 auto;
+    margin: 25px auto;
     padding-top: 25px;
-
-    margin-top: 25px;
-    margin-bottom: 25px;
     background: rgba(218, 229, 227, 0.9);
     border-radius: 15px;
-    width: 400px;
+    width: 30%;
     float: left;
     margin-left: 50px
 }
 
 .info {
-    border: 0.25px solid #000000;
-    width: 155px;
+    border: 0.75px solid darkgrey;
+    width: 90%;
+    font-size: 15px;
+    line-height: 25px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    border-radius: 5px;
+    margin-right: 100px;
+    word-break: break-word;
+}
+
+.info2 {
+    border: 0.75px solid darkgrey;
+    width: 90%;
+    padding-left: 0;
     font-size: 15px;
     line-height: 35px;
     box-sizing: border-box;
     background: #FFFFFF;
-    border-radius: 10px;
-    margin-right: 40px;
+    border-radius: 5px;
+    word-break: break-word;
 }
 
 .row {
-    left: 0;
-    display: inline-flex;
-    padding-bottom: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .column {
@@ -167,14 +241,20 @@ button {
 }
 
 img {
-    float: right;
-    right: 0;
-    margin-right: 50px;
-    margin-top: 80px;
-    height: 50%;
-    width: 25%;
-    position: fixed;
+    margin: 1% 25%;
+    width: 50%;
+    height: auto;
 }
+
+/*img {*/
+/*    float: right;*/
+/*    right: 0;*/
+/*    margin-right: 50px;*/
+/*    margin-top: 80px;*/
+/*    height: 50%;*/
+/*    width: 25%;*/
+/*    position: fixed;*/
+/*}*/
 
 .search_input {
     background: #FFFFFF;
@@ -182,27 +262,20 @@ img {
     box-sizing: border-box;
     border-radius: 10px;
     padding-left: 20px;
-    font-family: Rboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
 }
 
-.label_head {
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 28px;
-    text-align: left;
-    padding-left: 40px;
-    margin-bottom: 0px;
+#search_text {
+    margin-bottom: 1%;
 }
 
 #search_button {
     background: rgba(84, 142, 255, 0.8);
     border-radius: 5px;
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 17px;
@@ -221,7 +294,7 @@ img {
     box-sizing: border-box;
     border-radius: 10px;
     padding-left: 20px;
-    font-family: Rboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     margin-top: 6px;
@@ -234,7 +307,7 @@ img {
 }
 
 ::placeholder {
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
@@ -243,7 +316,7 @@ img {
 
 :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 15px;
@@ -252,7 +325,7 @@ img {
 
 ::-ms-input-placeholder {
     /* Microsoft Edge */
-    font-family: Roboto;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 15px;

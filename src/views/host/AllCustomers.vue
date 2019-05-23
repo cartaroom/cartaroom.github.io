@@ -3,17 +3,17 @@
         <div class="banner">
             <p class="banner_text">All Your Customers</p>
         </div>
-        <div class="customer" v-for="booking of bookings.slice().reverse()" v-bind:key="booking['.key']">
+        <div class="customer" v-for="booking of bookings" v-bind:key="booking['.key']">
             <div class="row">
                 <div class="column1">
                     <img src="../../assets/banner/placeholde.png">
                 </div>
                 <div class="column2">
                     <div class="rowA">
-                        <label>Host</label>
+                        <label>Patron</label>
                     </div>
                     <div class="rowB">
-                        <p class="info">{{ booking.host}}</p>
+                        <p class="info">{{ booking.userEmail}}</p>
                     </div>
                 </div>
                 <div class="column3">
@@ -106,6 +106,7 @@
         margin-right: auto;
     }
     img{
+        border-radius:50%;
         width: 100%;
         height:auto;
     }
